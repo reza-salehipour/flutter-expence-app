@@ -1,4 +1,3 @@
-// @dart=2.9
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
@@ -35,7 +34,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -46,11 +45,47 @@ class MyHomePage extends StatelessWidget {
               child: Text('chart'),
             ),
           ),
-         Column(children: transactions.map((transaction) {
-           return Card(
-            child: Text(transaction.title),
-          ),
-         }).toList(),)
+          Column(
+            children: transactions.map((transaction) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        color: Colors.purple,
+                        width: 2,
+                      )),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        transaction.amount.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.purple),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          transaction.title as String,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          transaction.date.toString(),
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
+          )
         ],
       ),
     );
