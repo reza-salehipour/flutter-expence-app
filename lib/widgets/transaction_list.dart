@@ -21,18 +21,16 @@ class TransactionList extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
                       border: Border.all(
-                    color: Colors.purple,
+                    color: Theme.of(context).primaryColor,
                     width: 2,
                   )),
                   padding: EdgeInsets.all(10),
-                  child: Text(
-                    '\$${transactions[index].amount.toString()}',
-                    // ignore: prefer_const_constructors
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.purple),
-                  ),
+                  child: Text('\$${transactions[index].amount.toString()}',
+                      // ignore: prefer_const_constructors
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Theme.of(context).primaryColor)),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
