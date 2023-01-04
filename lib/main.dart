@@ -15,7 +15,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
               .copyWith(secondary: Colors.amber),
-          fontFamily: 'Quicksand'),
+          fontFamily: 'Quicksand',
+          appBarTheme: AppBarTheme(
+            toolbarTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
+                    headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))
+                .bodyText2,
+            titleTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
+                    headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))
+                .headline6,
+            //                             textTheme: ThemeData.light().textTheme.copyWith(
+            // headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20)),
+          )),
       //    theme: ThemeData(primarySwatch: Colors.purple,
       // accentColor: Colors.amber),
       home: MyHomePage(),
@@ -29,15 +43,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-        id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
-    Transaction(
-        id: 't1',
-        title: 'Weekly groceries',
-        amount: 13.66,
-        date: DateTime.now())
-  ];
+  final List<Transaction> _userTransactions = [];
+  // [
+  //   Transaction(
+  //       id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+  //   Transaction(
+  //       id: 't1',
+  //       title: 'Weekly groceries',
+  //       amount: 13.66,
+  //       date: DateTime.now())
+  // ];
 
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
