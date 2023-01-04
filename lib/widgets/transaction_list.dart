@@ -26,7 +26,7 @@ class TransactionList extends StatelessWidget {
                   )),
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    '\$${transactions[index].amount}',
+                    '\$${transactions[index].amount.toString()}',
                     // ignore: prefer_const_constructors
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
