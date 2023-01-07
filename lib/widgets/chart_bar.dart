@@ -1,7 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ChartBar extends StatelessWidget {
   final String label;
