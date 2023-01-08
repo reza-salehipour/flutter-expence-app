@@ -106,8 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+
+    final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text('Personal Expenses'),
@@ -119,9 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final transactionListWidget = Container(
-        height: (MediaQuery.of(context).size.height * 0.7 -
+        height: (mediaQuery.size.height * 0.7 -
             appBar.preferredSize.height -
-            MediaQuery.of(context).padding.top),
+            mediaQuery.padding.top),
         child: TransactionList(_userTransactions, _deleteTransaction));
     return Scaffold(
       appBar: appBar,
@@ -146,17 +147,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandscape)
               Container(
-                  height: (MediaQuery.of(context).size.height * 0.3 -
+                  height: (mediaQuery.size.height * 0.3 -
                       appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top),
+                      mediaQuery.padding.top),
                   child: Chart(_recentTransactions)),
             if (!isLandscape) transactionListWidget,
             if (isLandscape)
               _showChart
                   ? Container(
-                      height: (MediaQuery.of(context).size.height * 0.7 -
+                      height: (mediaQuery.size.height * 0.7 -
                           appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top),
+                          mediaQuery.padding.top),
                       child: Chart(_recentTransactions))
                   : transactionListWidget
           ],
