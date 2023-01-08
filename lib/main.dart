@@ -1,12 +1,18 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, unused_element
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -55,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //       amount: 13.66,
   //       date: DateTime.now())
   // ];
-
+  bool _showChart = false;
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((transaction) {
       return transaction.date!.isAfter(
@@ -116,16 +122,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-                height: (MediaQuery.of(context).size.height * 0.3 -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top),
-                child: Chart(_recentTransactions)),
-            Container(
-                height: (MediaQuery.of(context).size.height * 0.7 -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top),
-                child: TransactionList(_userTransactions, _deleteTransaction))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('show chart'),
+                Switch(
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    })
+              ],
+            ),
+            _showChart
+                ? Container(
+                    height: (MediaQuery.of(context).size.height * 0.3 -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top),
+                    child: Chart(_recentTransactions))
+                : Container(
+                    height: (MediaQuery.of(context).size.height * 0.7 -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top),
+                    child:
+                        TransactionList(_userTransactions, _deleteTransaction))
           ],
         ),
       ),
