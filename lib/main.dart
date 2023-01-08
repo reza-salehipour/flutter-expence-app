@@ -106,6 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text('Personal Expenses'),
       actions: <Widget>[
@@ -115,6 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    final transactionListWidget = Container(
+        height: (MediaQuery.of(context).size.height * 0.7 -
+            appBar.preferredSize.height -
+            MediaQuery.of(context).padding.top),
+        child: TransactionList(_userTransactions, _deleteTransaction));
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -122,31 +130,35 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('show chart'),
-                Switch(
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    })
-              ],
-            ),
-            _showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height * 0.3 -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top),
-                    child: Chart(_recentTransactions))
-                : Container(
-                    height: (MediaQuery.of(context).size.height * 0.7 -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top),
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction))
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('show chart'),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (value) {
+                        setState(() {
+                          _showChart = value;
+                        });
+                      })
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                  height: (MediaQuery.of(context).size.height * 0.3 -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top),
+                  child: Chart(_recentTransactions)),
+            if (!isLandscape) transactionListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height * 0.7 -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top),
+                      child: Chart(_recentTransactions))
+                  : transactionListWidget
           ],
         ),
       ),
