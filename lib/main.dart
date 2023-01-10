@@ -134,42 +134,47 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar.preferredSize.height -
             mediaQuery.padding.top),
         child: TransactionList(_userTransactions, _deleteTransaction));
-    final pageBody = SingleChildScrollView(
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('show chart'),
-                Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    })
-              ],
-            ),
-          if (!isLandscape)
-            Container(
-                height: (mediaQuery.size.height * 0.3 -
-                    appBar.preferredSize.height -
-                    mediaQuery.padding.top),
-                child: Chart(_recentTransactions)),
-          if (!isLandscape) transactionListWidget,
-          if (isLandscape)
-            _showChart
-                ? Container(
-                    height: (mediaQuery.size.height * 0.7 -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top),
-                    child: Chart(_recentTransactions))
-                : transactionListWidget
-        ],
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'show chart',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Switch.adaptive(
+                      activeColor: Theme.of(context).accentColor,
+                      value: _showChart,
+                      onChanged: (value) {
+                        setState(() {
+                          _showChart = value;
+                        });
+                      })
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                  height: (mediaQuery.size.height * 0.3 -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top),
+                  child: Chart(_recentTransactions)),
+            if (!isLandscape) transactionListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (mediaQuery.size.height * 0.7 -
+                          appBar.preferredSize.height -
+                          mediaQuery.padding.top),
+                      child: Chart(_recentTransactions))
+                  : transactionListWidget
+          ],
+        ),
       ),
     );
 
